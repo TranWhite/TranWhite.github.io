@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Shell</title>
+    <url>/post/65e2c8d8.html</url>
+    <content><![CDATA[<blockquote>
+<p>声明：本文章仅为网络空间安全学习过程中的知识分享和心得记录，用于技术交流和开源学习。请勿利用自身技能危害社会安全，谋取不当利益。维护网络安全和个人隐私是每个网民义不容辞的责任。中国人将更重视数据隐私，中国的网络安全事业定将蒸蒸日上！✨</p>
+</blockquote>
+<h2 id="What-is-the-shell"><a href="#What-is-the-shell" class="headerlink" title="What is the shell?"></a>What is the shell?</h2><p>Shell 既是一种<strong>命令语言</strong>，又是一<strong>种程序设计语言</strong>。 Shell 是指一种应用程序，这个应用程序提供了一个界面，用户通过这个界面访问操作系统内核的服务。 Windows powershell就是典型的shell。</p>
+<p><img src="/post/65e2c8d8/Windows_Powershell.png" alt="Windows PowerShell"></p>
+<p>各种形式的shell虽然细节上存在差异，但是核心功能都是相同的：允许执行程序，输入并获取某种半结构化的输出。</p>
+<p><code>半结构化输出：是结构化（分布、存储有序，容易处理）的输出，但是结构变化很大</code></p>
+<h2 id="The-use-of-the-shell"><a href="#The-use-of-the-shell" class="headerlink" title="The  use of the shell."></a>The  use of the shell.</h2><blockquote>
+<p>以下以ubuntu系统的Bourne Again Shell(简称“bash”)为例进行学习</p>
+</blockquote>
+<h4 id="首先给出终端-terminal-、Shell、bash、命令提示符-cmd-的区别"><a href="#首先给出终端-terminal-、Shell、bash、命令提示符-cmd-的区别" class="headerlink" title="首先给出终端(terminal)、Shell、bash、命令提示符(cmd)的区别"></a>首先给出终端(terminal)、Shell、bash、命令提示符(cmd)的区别</h4><p>1.终端是一个在窗口中绘制文本的程序，它会在屏幕上显示输出，也能让你通过键盘输入内容。准确讲，应该被称为「终端模拟器」，是对早年老式终端机的一种模拟程序。终端本身并不知道如何处理你的输入内容，它只是把你输入的东西发送给某个独立的处理程序（并不一定是 Shell，终端完全可以不依赖 Shell 运行各种终端程序。比如你在 Python 解释器的终端中，就可以通过这种终端发送一段 Python 脚本给 Python 解释器运行；你也可以在通常所说的终端中直接指定不是 Shell 的特定的处理程序）。</p>
+<p>2.Shell 是上一点所说的「独立的处理程序」的一种，它能将你输入的内容解释为命令，确定你想运行的程序并运行之，然后将输出发回给终端。顾名思义，你可以把 Shell 当作 OS 外的一层「壳」，可以用来与 OS 内核进行交互。你同样可以在不使用终端的情况下使用 Shell，比如 Shell 脚本编程，把命令写在文本文件中，然后直接从文件中运行 Shell 程序。</p>
+<p>3.Shell 有很多种，bash 就是其中目前使用最广泛的一种。</p>
+<p>4.命令提示符是在操作系统中，提示进行命令输入的一种工作提示符。在不同的操作系统环境下，命令提示符各不相同。在windows环境下，命令行程序为cmd.exe，是一个32位的命令行程序。命令行就是指一个终端命令输入软件，系统会自动编译并执行您所输入的命令，别称“命令提示符”或“终端”。</p>
+<p><code>也就是说cmd也可以叫做terminal，可以输入内容，在屏幕上显示输出，并发送给Shell或其他处理程序。Shell可以将terminal输入的内容解释为命令，并且运行程序，然后将输出发回给终端，而bash是一种Linux系统中的Shell。</code></p>
+<p><img src="/post/65e2c8d8/%E7%BB%88%E7%AB%AF%E3%80%81shell%E8%81%94%E7%B3%BB.png" alt="终端、Shell、内核联系"></p>
+<blockquote>
+<p>linux系统有7个终端<code>Ctrl+Alt+F1~F7</code>，其中<code>F1</code>是图形化界面</p>
+</blockquote>
+<p><img src="/post/65e2c8d8/%E7%BB%88%E7%AB%AF1.png" alt="终端1图形化界面"></p>
+<p><img src="/post/65e2c8d8/%E7%BB%88%E7%AB%AF3.png" alt="终端3"></p>
+<h3 id="Basic-use"><a href="#Basic-use" class="headerlink" title="Basic  use"></a>Basic  use</h3><p>这是 shell 最主要的文本接口。它告诉你，你的主机名并且您当前的工作目录（”current working directory”）或者说您当前所在的位置是 <code>~</code> (表示 “home”)。 <code>$</code> 符号表示您现在的身份不是 root 用户。在这个提示符中，您可以输入 <em>命令</em> ，命令最终会被 shell 解析。</p>
+<p><img src="/post/65e2c8d8/%E5%BC%80%E5%A7%8B%E7%95%8C%E9%9D%A2.png"></p>
+<p>简单的命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">web@ubuntu:~$ <span class="built_in">date</span></span><br><span class="line">Tue Jul 12 10:08:09 PDT 2022</span><br><span class="line">web@ubuntu:~$ <span class="built_in">echo</span> <span class="string">&#x27;Hello World&#x27;</span></span><br><span class="line">Hello World</span><br><span class="line">web@ubuntu:~$ <span class="built_in">echo</span> Hello\ World</span><br><span class="line">Hello World</span><br></pre></td></tr></table></figure>
+
+<p> shell 基于&#x3D;&#x3D;空格&#x3D;&#x3D;分割命令并进行解析，然后<strong>执行第一个单词代表的程序，并将后续的单词作为程序可以访问的参数</strong>。如果您希望传递的参数中包含空格（例如一个名为 My Photos 的文件夹），您要么用使用单引号，双引号将其包裹起来，要么使用转义符号 <code>\</code> 进行处理（<code>My\ Photos</code>）</p>
+<p>但是，shell 是如何知道去哪里寻找 <code>date</code> 或 <code>echo</code> 的呢？其实，类似于 Python 或 Ruby，shell 是一个编程环境，所以它具备变量、条件、循环和函数。当你在 shell 中执行命令时，实际上是在执行一段 shell 可以解释执行的简短代码。如果你要求 shell 执行某个指令，但是该指令并不是 shell 所了解的编程关键字，那么它会去咨询 <em>环境变量</em> <code>$PATH</code>(环境变量在shell启动时就被设置)，它会列出当 shell 接到某条指令时，进行程序搜索的路径：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">web@ubuntu:~$ <span class="built_in">echo</span> <span class="variable">$PATH</span></span><br><span class="line">/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin</span><br></pre></td></tr></table></figure>
+
+<h4 id="在计算机中导航-Navigating-in-the-shell"><a href="#在计算机中导航-Navigating-in-the-shell" class="headerlink" title="在计算机中导航(Navigating in the shell)"></a>在计算机中导航(Navigating in the shell)</h4><p>这行命令展示了shell运行程序时所查找的全部路径，这是一个列表。当你输入一个程序时，shell将会搜索机器上的路径列表，它将在每个文件夹中查看项目或文件是否符合你输入的命令。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">web@ubuntu:~$ <span class="built_in">which</span> <span class="built_in">echo</span></span><br><span class="line">/bin/echo</span><br></pre></td></tr></table></figure>
+
+<p>显示echo命令所在的位置↑(Linux、MacOS只有一个分区，所以根目录为&#x2F;，且以<code>/</code>分隔，而Windows有多个分区，每个分区都有一个根目录，所以路径为C: \，D：...)</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">web@ubuntu:~$ <span class="built_in">pwd</span></span><br><span class="line">/home/web</span><br></pre></td></tr></table></figure>
+
+<p>显示当前所在位置的绝对路径(absolute path)，present working directory. 相对路径(relative path)是相对于你现在工作的位置。<code>cd</code>，前面用<code>/</code>标明是从根目录 开始，否则是当前文件夹的下一级，或者用<code>./...</code>也可以表示下一级，可以用于修改工作目录。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">web@ubuntu:~$ <span class="built_in">cd</span> /home</span><br><span class="line">web@ubuntu:/home$ <span class="built_in">pwd</span></span><br><span class="line">/home</span><br></pre></td></tr></table></figure>
+
+<p>为了查看指定目录下包含那些文件，可以使用<code>ls</code>命令，其后参数及作用如下：</p>
+<ul>
+<li>-a 显示所有文件及目录 (<strong>.</strong> 开头的隐藏文件也会列出)</li>
+<li>-l 除文件名称外，亦将文件型态、权限、拥有者、文件大小等资讯详细列出</li>
+<li>-r 将文件以相反次序显示(原定依英文字母次序)</li>
+<li>-t 将文件依建立时间之先后次序列出</li>
+<li>-A 同 -a ，但不列出 “.” (目前目录) 及 “..” (父目录)</li>
+<li>-F 在列出的文件名称后加一符号；例如可执行档则加 “*”, 目录则加 “&#x2F;“</li>
+<li>-R 若目录下有文件，则以下之文件亦皆依序列出</li>
+</ul>
+<p>举例🌰：</p>
+<p>​    列出根目录()下的所有目录：</p>
+<p>​    <code>ls /</code></p>
+<p>​    列出目前工作目录下所有名称是 s 开头的文件，越新的排越后面 :</p>
+<p>​    <code>ls -ltr s*</code></p>
+<p>​    将 &#x2F;bin 目录以下所有目录及文件详细资料列出 :</p>
+<p>​    <code>ls -lR /bin</code></p>
+<p>​    列出目前工作目录下所有文件及目录；目录于名称后加 “&#x2F;“, 可执行档于名称后加 “*” :</p>
+<p>​     <code>ls -AF</code></p>
+<p>​     <img src="/post/65e2c8d8/ls_AF.png" style="zoom: 33%;"></p>
+<p>其中<code>ls -l</code>可以详细地打印出目录下文件或文件夹的信息：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">drwxr-xr-x 110 web  web  4096 Jun  6 06:54 vulhub-master</span><br></pre></td></tr></table></figure>
+
+<p>首先，本行第一个字符 <code>d</code> 表示 <code>vulhub-master</code> 是一个目录。然后接下来的九个字符，每三个字符构成一组。 （<code>rwx</code>）. 它们分别代表了&#x3D;&#x3D;文件所有者&#x3D;&#x3D;（<code>web</code>），&#x3D;&#x3D;用户组&#x3D;&#x3D;（<code>web</code>） 以及其他所有人具有的权限。其中 <code>-</code> 表示该用户不具备相应的权限。从上面的信息来看，只有文件所有者可以修改（<code>w</code>）<code>vulhub-master</code>文件夹 （例如，添加或删除文件夹中的文件）；为了进入某个文件夹，用户需要具备该文件夹以及其父文件夹的“搜索”权限（以“可执行”：<code>x</code>）权限表示；为了列出它的包含的内容，用户必须对该文件夹具备读权限（<code>r</code>）。</p>
+<p>如果想获得更多程序参数的意义，可以使用<code>man ...</code>程序，可以接受一个 程序名作为参数，然后展示用户手册，使用<code>q</code>退出该程序。</p>
+<h3 id="Connecting-programs"><a href="#Connecting-programs" class="headerlink" title="Connecting programs"></a>Connecting programs</h3><p>程序有输入流和输出流，一般键盘作为输入，显示器作为输出。</p>
+<p>最简单的重定向是<code>&lt; file</code>和<code>&gt; file</code>，可以将程序的输入输出流分别重定向到文件。<code>|</code>操作符允许我们将一个程序的输出和另外一个程序的输入连接起来使用。</p>
+<p>注意：<code>&gt;</code>、和 <code>&lt;</code> 是通过 shell 执行的，而不是被各个程序单独执行。 <code>echo</code> 等程序并不知道 <code>|</code> 的存在，它们只知道从自己的输入输出流中进行读写。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">web@ubuntu:~/Desktop$ <span class="built_in">echo</span> hello  &gt; hello.txt</span><br><span class="line">web@ubuntu:~/Desktop$ <span class="built_in">ls</span></span><br><span class="line">1.txt  hello.txt  vulhub-master</span><br><span class="line">web@ubuntu:~/Desktop$ <span class="built_in">cat</span> hello.txt </span><br><span class="line">hello</span><br><span class="line">web@ubuntu:~/Desktop$ <span class="built_in">cat</span> &lt; hello.txt </span><br><span class="line">hello</span><br><span class="line">web@ubuntu:~/Desktop$ <span class="built_in">cat</span> &lt; hello.txt &gt; hello2.txt</span><br><span class="line">web@ubuntu:~/Desktop$ <span class="built_in">ls</span></span><br><span class="line">1.txt  hello2.txt  hello.txt  vulhub-master</span><br><span class="line">web@ubuntu:~/Desktop$ <span class="built_in">cat</span> hello2.txt </span><br><span class="line">hello</span><br></pre></td></tr></table></figure>
+
+<p><code>cat</code>为文本文件查看命令，常用命令有：</p>
+<blockquote>
+<p><code>cat</code>：从第一行开始显示文本内容（适用于内容较少的）</p>
+<p><code>tac</code>：从最后一行开始显示，是 cat 的逆顺序</p>
+<p><code>more</code>：一页一页的显示文本内容（适用于内容较多的）</p>
+<p><code>less</code>：与 more 类似，但是比 more 更好的是可以往前翻页 </p>
+<p><code>head</code>：只看文本的前面几行</p>
+<p><code>tail</code>：只看文本的后面几行</p>
+<p><code>nl</code>：显示文本内容与行号 </p>
+</blockquote>
+<h3 id="Exercises"><a href="#Exercises" class="headerlink" title="Exercises"></a>Exercises</h3><p>1.创建missing文件夹，并用<code>touch</code>新建一个semester的文件：</p>
+<p><code>touch semester</code></p>
+<p>touch命令用于修改文件或者目录的时间属性，包括存取时间和更改时间。若文件不存在，系统会建立一个新的文件。</p>
+<p>2.将以下内容一行一行地写入 semester 文件：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line">curl --<span class="built_in">head</span> --silent https://missing.csail.mit.edu</span><br></pre></td></tr></table></figure>
+
+<p>第一行可能有点棘手， <code>#</code> 在Bash中表示注释，而 <code>!</code> 即使被双引号（<code>&quot;</code>）包裹也具有特殊的含义。 单引号（<code>&#39;</code>）则不一样，此处利用这一点解决输入问题:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">web@ubuntu:~/missing$ <span class="built_in">touch</span> semester</span><br><span class="line">web@ubuntu:~/missing$ <span class="built_in">ls</span></span><br><span class="line">semester</span><br><span class="line"><span class="built_in">echo</span> curl --<span class="built_in">head</span> --silent https://missing.csail.mit.edu &gt; semester</span><br><span class="line">web@ubuntu:~/missing$ <span class="built_in">cat</span> semester </span><br><span class="line">curl --<span class="built_in">head</span> --silent https://missing.csail.mit.edu<span class="comment">#覆盖原来的内容</span></span><br><span class="line"></span><br><span class="line">web@ubuntu:~/missing$ <span class="built_in">echo</span> <span class="string">&#x27;#!/bin/sh&#x27;</span> &gt; semester</span><br><span class="line">web@ubuntu:~/missing$ <span class="built_in">echo</span> curl --<span class="built_in">head</span> --silent https://missing.csail.mit.edu &gt;&gt; semester </span><br><span class="line">web@ubuntu:~/missing$ <span class="built_in">cat</span> semester </span><br><span class="line"><span class="comment">#!/bin/sh</span></span><br><span class="line">curl --<span class="built_in">head</span> --silent https://missing.csail.mit.edu</span><br></pre></td></tr></table></figure>
+
+<p>3.尝试执行这个文件。即，将该脚本的路径（<code>./semester</code>）输入到您的shell中并回车。如果程序无法执行，请使用 ls 命令来获取信息并理解其不能执行的原因。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">web@ubuntu:~/missing$ ./semester</span><br><span class="line">bash: ./semester: Permission denied</span><br><span class="line">web@ubuntu:~/missing$ <span class="built_in">ls</span> -l</span><br><span class="line">total 4</span><br><span class="line">-rw-rw-r-- 1 web web 61 Jul 15 06:25 semester</span><br></pre></td></tr></table></figure>
+
+<p>该文件不可执行，即所有用户都没有<code>x</code>功能。</p>
+<p>4.使用 chmod 命令改变权限，使 <code>./semester</code> 能够成功执行，不要使用 sh semester 来执行该程序。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">web@ubuntu:~/missing$ <span class="built_in">chmod</span> 777 semester</span><br><span class="line">web@ubuntu:~/missing$ <span class="built_in">ls</span> -l</span><br><span class="line">total 4</span><br><span class="line">-rwxrwxrwx 1 web web 61 Jul 15 06:25 semester</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>chmod是Linux下设置文件权限的命令，后面的数字表示不同用户或用户组的权限。<br>一般是三个数字：<br>第一个数字表示文件所有者的权限<br>第二个数字表示与文件所有者同属一个用户组的其他用户的权限<br>第三个数字表示其它用户组的权限<br>权限分为三种：读（r&#x3D;4），写（w&#x3D;2），执行（x&#x3D;1）。综合起来还有可读可执行（rx&#x3D;5&#x3D;4+1）、可读可写（rw&#x3D;6&#x3D;4+2）、可读可写可执行(rwx&#x3D;7&#x3D;4+2+1)。<br>所以，chmod 755 设置用户的权限为：<br>1.文件所有者可读可写可执行<br>2.与文件所有者同属一个用户组的其他用户可读可执行<br>3.其它用户组可读可执行<br>chmod 4755与chmod 755 的区别在于开头多了一位，这个4表示其他用户执行文件时，具有与所有者相当的权限。</p>
+</blockquote>
+<p>5.使用 <code>|</code> 和 <code>&gt;</code> ，将 semester 文件输出的最后更改日期信息，写入主目录下的 <code>last-modified.txt</code> 的文件中</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">web@ubuntu:~/missing$ ./semester | grep last-modified &gt; ~/last-modified.txt</span><br><span class="line">web@ubuntu:~/missing$ <span class="built_in">cat</span> ~/last-modified.txt </span><br><span class="line">last-modified: Sat, 14 May 2022 10:50:11 GMT</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>grep 命令用于查找文件里符合条件的字符串，如果发现某文件的内容符合所指定的范本样式，预设 grep 指令会把含有范本样式的那一列显示出来。若不指定任何文件名称，或是所给予的文件名为 **-**，则 grep 指令会从标准输入设备读取数据。</p>
+</blockquote>
+<p>shell的基本操作就到此结束啦，后续补充其他的应用！🥑</p>
+<p>维护网络空间安全任重道远，人人有责！🍒</p>
+<blockquote>
+<p>参考资料</p>
+<p>1.<a href="https://www.zhihu.com/question/40448945">(ubuntu下的终端，shell，bash是什么以及区别 - 知乎</a> Maples7</p>
+<p>2.<a href="https://baike.baidu.com/item/%E5%91%BD%E4%BB%A4%E6%8F%90%E7%A4%BA%E7%AC%A6/998728">命令提示符_百度百科 </a></p>
+<p>3.<a href="https://missing-semester-cn.github.io/2020/course-shell/">课程概览与 shell · the missing semester of your cs education</a></p>
+<p>4.<a href="https://www.runoob.com/linux/linux-comm-ls.html">Linux ls命令 | 菜鸟教程 (runoob.com)</a></p>
+<p>5.<a href="https://blog.csdn.net/weixin_42874157/article/details/89352574">Linux中chmod后面的数字参数是什么含义</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>basis</category>
+        <category>The Missing Semester</category>
+        <category>Shell</category>
+      </categories>
+      <tags>
+        <tag>计算机基础</tag>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+</search>
