@@ -107,6 +107,11 @@
 <blockquote>
 <p>grep 命令用于查找文件里符合条件的字符串，如果发现某文件的内容符合所指定的范本样式，预设 grep 指令会把含有范本样式的那一列显示出来。若不指定任何文件名称，或是所给予的文件名为 **-**，则 grep 指令会从标准输入设备读取数据。</p>
 </blockquote>
+<h3 id="Shell-Scripting-Shell脚本"><a href="#Shell-Scripting-Shell脚本" class="headerlink" title="Shell Scripting(Shell脚本)"></a>Shell Scripting(Shell脚本)</h3><p>在bash中为变量赋值的语法是<code>foo=bar</code>，访问变量中存储的数值，其语法为 <code>$foo</code>。 需要注意的是，<font color="red"><code>foo = bar</code> （使用空格隔开）是不能正确工作的，因为解释器会调用程序<code>foo</code> 并将 <code>=</code> 和 <code>bar</code>作为参数</font>。 总的来说，在shell脚本中使用空格会起到分割参数的作用，可能会造成混淆。</p>
+<p>Bash中的字符串通过<code>&#39;</code> 和 <code>&quot;</code>分隔符来定义，但是它们的含义并不相同。&#x3D;&#x3D;以<code>&#39;</code>定义的字符串为原义字符串&#x3D;&#x3D;，其中的变量不会被转义，&#x3D;&#x3D;而 <code>&quot;</code>定义的字符串会将变量值进行替换&#x3D;&#x3D;。</p>
+<p>举例🌰</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">foo=bar</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$foo</span>&quot;</span></span><br><span class="line"><span class="comment"># 打印 bar</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;$foo&#x27;</span></span><br><span class="line"><span class="comment"># 打印 $foo</span></span><br></pre></td></tr></table></figure>
+
 <p>shell的基本操作就到此结束啦，后续补充其他的应用！🥑</p>
 <p>维护网络空间安全任重道远，人人有责！🍒</p>
 <blockquote>
@@ -126,6 +131,153 @@
       <tags>
         <tag>计算机基础</tag>
         <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>golang标识符、关键字、命名规则</title>
+    <url>/post/84edc29d.html</url>
+    <content><![CDATA[<h2 id="标识符（identifier）"><a href="#标识符（identifier）" class="headerlink" title="标识符（identifier）"></a>标识符（identifier）</h2><p>标识符就是给变量、常量、函数、方法、结构体、数组、切片、接口起的名字。</p>
+<h3 id="标识符的组成"><a href="#标识符的组成" class="headerlink" title="标识符的组成"></a>标识符的组成</h3><p>1.标识符由数字、字母和下划线_组成【&amp;*…都不可以】</p>
+<p>2.只能以字母和下划线开头</p>
+<p>3.区分大小写</p>
+<h2 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h2><p>go语言提供了25个关键字：</p>
+<p>1.break 用于跳出循环</p>
+<p>2.default 用于选择结构的默认选项（switch、select）</p>
+<p>3.func 函数定义</p>
+<p>4.interface 定义接口</p>
+<p>5.select go语言特有的channel选择结构</p>
+<p>6.case 选择结构标签(和switch匹配)</p>
+<p>7.chan 定义channel</p>
+<p>8.const 常量</p>
+<p>9.continue 跳过本次循环</p>
+<p>10.defer 延迟执行内容（收尾工作）有点类似C++的析构，但是它是再函数结尾的时候去执行（也就是栈即将被释放的时候）</p>
+<p>11.go 并发执行</p>
+<p>12.map map类型</p>
+<p>13.struct 定义结构体</p>
+<p>14.else 选择结构</p>
+<p>15.goto 跳转语句</p>
+<p>16.package 包</p>
+<p>17.switch 选择结构</p>
+<p>18.fallthrough 如果case带有fallthrough，程序会继续执行下一条case,不会再判断下一条case的值</p>
+<p>19.if 选择结构</p>
+<p>20.range 从slice、map等结构中取元素</p>
+<p>21.type 定义类型</p>
+<p>22.for 循环</p>
+<p>23.import 导入包</p>
+<p>24.return 返回</p>
+<p>25.var 定义变量</p>
+<p>还有36个预定义标识符，其中包含了基本类型的名称和一些基本的函数：</p>
+<p><img src="/post/84edc29d/go%E9%A2%84%E5%AE%9A%E4%B9%89%E6%A0%87%E8%AF%86%E7%AC%A6.png"></p>
+<h2 id="命名规范（约定俗成）"><a href="#命名规范（约定俗成）" class="headerlink" title="命名规范（约定俗成）"></a>命名规范（约定俗成）</h2><p>Go区分大小写，任何需要对外暴露的名字必须以大写字母开头（<strong>可以被外部包的代码所使用，客户端程序需要先导入这个包</strong>），不需要对外暴露（<strong>对外不可见</strong>）的应该以小写字母开头。</p>
+<h3 id="包名称"><a href="#包名称" class="headerlink" title="包名称"></a>包名称</h3><p>包名称应该为<strong>小写</strong>单词，不要使用下划线或者混合大小写。</p>
+<h3 id="文件命名"><a href="#文件命名" class="headerlink" title="文件命名"></a>文件命名</h3><p>应改为<strong>小写</strong>单词，使用下划线分隔各个单词。</p>
+<h3 id="结构体命名"><a href="#结构体命名" class="headerlink" title="结构体命名"></a>结构体命名</h3><p>采用<strong>驼峰命名法</strong>，首字母根据访问控制大写或则小写。</p>
+<h3 id="接口命名"><a href="#接口命名" class="headerlink" title="接口命名"></a>接口命名</h3><p>命名规则基本和结构体类型相似，单个函数的结构名以“er”作为后缀，例如<code>Reader</code>,<code>Writer</code></p>
+<h3 id="变量命名"><a href="#变量命名" class="headerlink" title="变量命名"></a>变量命名</h3><p>驼峰法，首字母根据访问控制原则大写或者小写。如果遇到特有名词，应遵循以下规则：</p>
+<p>如果变量为私有，且特有名词为首个单词，则使用小写，例如appService若变量类型为bool类型，则名称应以has, is, can, allow开头</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> isExist <span class="type">bool</span></span><br><span class="line"><span class="keyword">var</span> hasConflict <span class="type">bool</span></span><br><span class="line"><span class="keyword">var</span> canManage <span class="type">bool</span></span><br><span class="line"><span class="keyword">var</span> allowGitHook <span class="type">bool</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="常量命名"><a href="#常量命名" class="headerlink" title="常量命名"></a>常量命名</h3><p><font color="red">常量均需全部由<strong>大写</strong>字母组成，并使用下划线分词。</font></p>
+<h3 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h3><p>错误处理的原则是不能丢弃任何有返回err的调用，不要使用_丢弃，必须全部处理。接收到错误，要么返回err，后者使用log记录下来尽早return。</p>
+]]></content>
+      <categories>
+        <category>basis</category>
+        <category>Language</category>
+        <category>Go</category>
+      </categories>
+      <tags>
+        <tag>语言学习</tag>
+        <tag>Go</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>golang安装及尝试</title>
+    <url>/post/1720130d.html</url>
+    <content><![CDATA[<h2 id="Go语言简介"><a href="#Go语言简介" class="headerlink" title="Go语言简介"></a>Go语言简介</h2><p><strong>Go</strong>（又称 <strong>Golang</strong>）是 Google 的 Robert Griesemer，Rob Pike 及 Ken Thompson 开发的一种静态强类型、编译型语言（将所有原代码转换成可执行文件，包含机器码，可以随时运行，一般不能跨平台，但go语言可以设置交叉编译环境跨平台编译）、可直接编译成机器码 ，不依赖其他库。Go 语言语法与 C 相近，但功能上有：内存安全，GC（垃圾回收），结构形态及 CSP-style &#x3D;&#x3D;<strong>并发计算</strong>&#x3D;&#x3D;。</p>
+<h3 id="应用领域"><a href="#应用领域" class="headerlink" title="应用领域"></a>应用领域</h3><p>1.服务器编程</p>
+<p>2.开发云平台</p>
+<p>3.区块链</p>
+<p>4.分布式系统</p>
+<p>5.网络编程</p>
+<h2 id="开发环境搭建（以windows为例）"><a href="#开发环境搭建（以windows为例）" class="headerlink" title="开发环境搭建（以windows为例）"></a>开发环境搭建（以windows为例）</h2><p>golang安装包下载地址：<a href="https://golang.google.cn/dl/">https://golang.google.cn/dl/</a></p>
+<p><img src="/post/1720130d/go%E5%AE%89%E8%A3%85%E5%8C%85%E4%B8%8B%E8%BD%BD.png"></p>
+<p>配置环境变量：</p>
+<p><img src="/post/1720130d/%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.png" alt="设置环境变量"></p>
+<img src="/post/1720130d/环境设置成功.png" style="zoom:50%;">
+
+<p>🔥在powershell中配置go环境：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash"><span class="variable">$env</span>:GO111MODULE = <span class="string">&quot;on&quot;</span></span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash"><span class="variable">$env</span>:GOPROXY = <span class="string">&quot;http://goproxy.cn&quot;</span></span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">go <span class="built_in">env</span></span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/1720130d/go%E7%8E%AF%E5%A2%83.png"></p>
+<h3 id="Go开发工具"><a href="#Go开发工具" class="headerlink" title="Go开发工具"></a>Go开发工具</h3><p>以vscode为例学习，goland需要付费使用。安装如下拓展：</p>
+<img src="/post/1720130d/go图标.png" style="zoom:38%;">
+
+<h4 id="第一个程序"><a href="#第一个程序" class="headerlink" title="第一个程序"></a>第一个程序</h4><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;hello go&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="可用命令"><a href="#可用命令" class="headerlink" title="可用命令"></a>可用命令</h3><ul>
+<li><p>📌build: 编译包和依赖，生成可执行文件，例如：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">go build main.go</span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">./main.exe</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>📌run: 运行go文件，<code>go run main.go</code></p>
+</li>
+<li><p>clean: 移除对象文件</p>
+</li>
+<li><p>doc: 显示包或者符号的文档</p>
+</li>
+<li><p>env: 打印go的环境信息</p>
+</li>
+<li><p>bug: 启动错误报告</p>
+</li>
+<li><p>fix: 运行go tool fix</p>
+</li>
+<li><p>fmt: 运行gofmt进行格式化</p>
+</li>
+<li><p>📌get: 下载并安装包和依赖 ，首先要初始化项目：<code>go mod init + 项目名称</code>，然后下载包<code>go get + 包的下载地址</code>（包的查询地址：pkg.go.dev）</p>
+</li>
+<li><p>list: 列出包</p>
+</li>
+<li><p>run: 编译并运行go程序</p>
+</li>
+<li><p>test:  执行当前项目下的所有测试文件</p>
+</li>
+<li><p>tool: 运行go提供的工具</p>
+</li>
+<li><p>version: 显示go的版本</p>
+</li>
+</ul>
+<h3 id="快速生成代码片段"><a href="#快速生成代码片段" class="headerlink" title="快速生成代码片段"></a>快速生成代码片段</h3><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">pkgm	 main包+main主函数</span><br><span class="line">ff		 fmt.Printf(<span class="string">&quot;&quot;</span>, <span class="keyword">var</span>)</span><br><span class="line"><span class="keyword">for</span>		 <span class="keyword">for</span> i :=<span class="number">0</span>; i &lt; count; i++ &#123;&#125;</span><br><span class="line">forr	 <span class="keyword">for</span> _,v := <span class="keyword">range</span> v &#123;&#125;</span><br><span class="line">fmain	 <span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;&#125;</span><br><span class="line">a.<span class="built_in">print</span>! fmt.Printf(<span class="string">&quot;a: %v\n&quot;</span>, a) <span class="comment">//经实践自己的vscode好像不能使用</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="如何编写golang代码"><a href="#如何编写golang代码" class="headerlink" title="如何编写golang代码"></a>如何编写golang代码</h3><h4 id="代码组织"><a href="#代码组织" class="headerlink" title="代码组织"></a>代码组织</h4><p>go应用使用<strong>包</strong>(文件夹)和<strong>模块</strong>(.go源文件)来组织代码，一个包中会有多个模块，或者多个子包。</p>
+<h4 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h4><p>1.创建项目</p>
+<p>2.初始化项目，在终端初始化<code>go mod init+项目名称</code></p>
+<img src="/post/1720130d/初始化项目.png" style="zoom:45%;">
+
+<p>图片中字母打错，应为<code>go_try</code></p>
+<p>3.创建包</p>
+<img src="/post/1720130d/创建包.png" style="zoom:38%;">
+
+<p>4.创建模块</p>
+<p>go程序的入口地址是主程序下的主函数</p>
+<p>5.相互调用</p>
+<p>在go_try文件夹下创建main.go文件，并输入以下内容：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;go_try/user&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := user.Hello()</span><br><span class="line">	fmt.Printf(<span class="string">&quot;s: %v\n&quot;</span>, s)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">s: Hello!</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>参考资料</p>
+<p>1.<a href="https://golang-tech-stack.com/tutorial/golang">Golang基础教程</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>basis</category>
+        <category>Language</category>
+        <category>Go</category>
+      </categories>
+      <tags>
+        <tag>语言学习</tag>
+        <tag>Go</tag>
       </tags>
   </entry>
 </search>
